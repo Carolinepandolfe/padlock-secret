@@ -15,11 +15,25 @@ const randomThirdDigit = () => {
 };
 
 const concatNumbers = (combination) => {
-  return (combination = `${randomFirstDigit()}${randomSecondDigit()}${randomThirdDigit()}`);
+  return (combination = Number(
+    `${randomFirstDigit()}${randomSecondDigit()}${randomThirdDigit()}`.padEnd(
+      3,
+      "0"
+    )
+  ));
 };
 
-for (let i = 0; i <= 1000; i++) {
+const renderCombination = () => {
   let combination = [];
-  combination.push(concatNumbers());
-  console.log(combination);
-}
+  for (let i = 0; i <= 999; i++) {
+    if (!combination.includes(concatNumbers())) {
+      combination.push(`${concatNumbers()}\n`);
+      console.log(combination.length);
+    }
+  }
+
+  let numbers = document.querySelector(".combination");
+  numbers.innerHTML = `Number ${combination}`;
+};
+
+renderCombination();
